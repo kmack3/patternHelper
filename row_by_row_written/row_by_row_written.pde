@@ -20,7 +20,7 @@ void firstInstruction() {
      String s = rowInstruction[0];
      textAlign(CENTER, CENTER);
      fill(0);
-     textSize(40);
+     textSize(35);
      text(s, xPos, yPos);
 }
 
@@ -49,7 +49,7 @@ void keyPressed() {
         clearCurrentInstruction();
      String s = rowInstruction[rowCount];
      fill(0);
-     textSize(40);
+     textSize(35);
      text(s, xPos, yPos);
      textAlign(CENTER, CENTER);
 }
