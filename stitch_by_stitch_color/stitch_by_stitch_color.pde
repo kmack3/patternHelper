@@ -10,7 +10,7 @@ int numPress = 0;
 String[] instructions = {"k", "k", "p", "p", "k", "k", "p", "p", "k", "k", "p", "p"};
 Minim minim;
 AudioSnippet beep;
-float rectX = 70;
+int rectX = 70;
 int x1 = 55;
 int x2 = 75;
 int x3 = 95;
