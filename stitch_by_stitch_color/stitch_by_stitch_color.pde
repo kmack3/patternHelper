@@ -54,7 +54,7 @@ void setup () {
   // Arrow to first square
   drawArrow();
   
-  
+  // play tone for first stitch
   playTone();
 }
 
@@ -95,16 +95,39 @@ void playTone() {
 }
 
 void keyPressed() {
-  if (key == 'b' || key == 'B') {
+  if (key == 'f' || key == 'F') {
+    greyRect(numPress);
     numPress = numPress + 1;
-    colorRect(numPress);
     drawArrow(); 
+  }
+  else if(key == 'b' || key == 'B') {
+    if(numPress == 0) {
+      numPress = 0;
+    }
+    else {
+      numPress = numPress - 1;
+    }
+    redrawRect(numPress);
+    drawArrow();
   }
 }
 
-void colorRect(int numPress) {
-  fill(0, 0, 0);
-  rect(50+(100*(numPress - 1)), 300, 50, 50 );
+void greyRect(int numPress) {
+  fill(255,255,255);
+  rect(50+(100*(numPress)), 300, 50, 50 );
   fill(192, 192, 192);
-  rect(50+(100*(numPress - 1)), 300, 50, 50 );
+  rect(50+(100*(numPress)), 300, 50, 50 );
+}
+
+void redrawRect(int numPress) {
+  fill(255,255,255);
+  rect(50+(100*(numPress)), 300, 50, 50 );
+  
+  if(instructions[numPress] == "k") {
+    fill(0, 0, 255);
+  }
+  else if(instructions[numPress] == "p") {
+    fill(0, 255, 0);
+  }
+  rect(50+(100*(numPress)), 300, 50, 50 );
 }
