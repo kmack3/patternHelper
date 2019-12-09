@@ -1,0 +1,7 @@
+k
+k,k,k,k,k,k,k,k,k,p,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
+sk,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,p,k,k,k,k,k,k,k,k,k
+k,k,k,k,k,k,k,k,k,p,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
+sk,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,p,k,k,k,k,k,k,k,k,k
+k,k,k,k,k,k,k,k,k,p,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
+sk,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,p,k,k,k,k,k,k,k,k,k
