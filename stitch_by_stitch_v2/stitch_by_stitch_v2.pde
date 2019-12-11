@@ -64,8 +64,17 @@ void drawRow(int row) {
     else if(stitches[i].equals("p")) {
        drawPurl(xCoor+(100*xOffset),yCoor+(150*rowOffset));
     }
-    else if(stitches[i].equals("sk")) {
+    else if(stitches[i].equals("s")) {
        drawSkip(xCoor+(100*xOffset),yCoor+(150*rowOffset));
+    }
+    else if(stitches[i].equals("i")) {
+      drawIncrease(xCoor+(100*xOffset),yCoor+(150*rowOffset));
+    }
+    else if(stitches[i].equals("d")) {
+      drawDecrease(xCoor+(100*xOffset),yCoor+(150*rowOffset));
+    }
+    else if(stitches[i].equals("y")) {
+      drawYarnOver(xCoor+(100*xOffset),yCoor+(150*rowOffset));
     }
     xOffset++;
   } 
@@ -87,6 +96,7 @@ void keyPressed() {
       if(activeRow == rowCount - 1); 
       else {
         activeRow++;
+        numPress = 0;
       }
     }
     else if(keyCode == DOWN) {
@@ -99,6 +109,7 @@ void keyPressed() {
     background(255);
     drawRow(activeRow);
     numPress = 0;
+    drawArrow();
   }
   
   // LEFT and RIGHT to navigate through stitches
@@ -144,6 +155,32 @@ void drawPurl(float purlX, float purlY) {// purl
   rect(purlX,purlY,50,50);
   line(purlX,purlY+25,purlX+50,purlY+25);
 }
+
+
+// increase
+void drawIncrease(float decreaseX, float decreaseY) {
+  rect(decreaseX,decreaseY,50,50);
+  line(decreaseX+25,decreaseY+10,decreaseX+25,decreaseY+40);
+  line(decreaseX+10,decreaseY+30,decreaseX+25,decreaseY+40);
+  line(decreaseX+25,decreaseY+40,decreaseX+40,decreaseY+30);
+}
+
+// decrease
+void drawDecrease(float increaseX, float increaseY) {
+  rect(increaseX,increaseY,50,50);
+  line(increaseX+40,increaseY+10,increaseX+10,increaseY+40);
+  textSize(20);
+  fill(0);
+  text("4",increaseX+30,increaseY+40);
+}
+
+// yarn over
+void drawYarnOver(float yarnX, float yarnY) {
+  rect(yarnX,yCoor,50,50);
+  circle(yarnX+25,yarnY+25, 20);
+}
+
+
 
 void drawSkip(float skipX, float skipY) { // skip
   stroke(0);
