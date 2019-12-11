@@ -1,4 +1,18 @@
 import processing.serial.*;
+
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+
+
+Minim minim;
+AudioSnippet purl_sound;
+AudioSnippet knit_sound;
+AudioSnippet  skip_sound;
 String myString = null;
 Serial myPort;
 int numPress = 0;
@@ -23,6 +37,10 @@ int rowNum = activeRow + 1;
 int numRowStitches = 0;
 
 void setup() {
+  minim = new Minim(this);
+  purl_sound = minim.loadSnippet("purl.wav");
+  knit_sound = minim.loadSnippet("knit.wav");
+  skip_sound = minim.loadSnippet("skip.wav");
   printArray(Serial.list());
   myPort = new Serial(this, Serial.list()[1], 115200);
   myPort.clear();
@@ -186,6 +204,35 @@ void drawArrow() {
   rect(rectX+(100*(numPress%10)), rectY+(150*div), 10, 40);
   triangle(x1+(100*(numPress%10)), rectY+5+(150*div), x2+(100*(numPress%10)), rectY-15+(150*div), 
     x3+(100*(numPress%10)), rectY+5+(150*div));
+  playTone();
+}
+
+void playTone() {
+  int rowOffset = numPress / 10;
+  int xOffset = (numPress % 10) - 1;
+  String[] stitches = getRowInstructions(1);
+
+  if (numPress == 0);
+  else {
+    if (rowOffset == 0);
+    else if (numPress % 10 == 0) {
+      rowOffset++;
+    }
+
+    String instruction = stitches[(rowOffset*10)+xOffset];
+    if(instruction.equals("k")) {
+          knit_sound.play();
+          knit_sound.rewind();
+    }
+    else if (instruction.equals("sk")) {
+          skip_sound.play();
+          skip_sound.rewind();
+    }
+    else {
+          purl_sound.play();
+          purl_sound.rewind();
+    }
+  }
 }
 
 /*********** grey out completed stitches ***********/

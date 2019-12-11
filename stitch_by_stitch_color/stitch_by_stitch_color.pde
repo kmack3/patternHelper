@@ -9,7 +9,8 @@ import ddf.minim.ugens.*;
 int numPress = 0;
 String[] instructions = {"k", "k", "p", "p", "k", "k", "p", "p", "k", "k", "p", "p"};
 Minim minim;
-AudioSnippet beep;
+AudioSnippet purl_sound;
+AudioSnippet knit_sound;
 int rectX = 70;
 int x1 = 55;
 int x2 = 75;
@@ -19,7 +20,8 @@ int x3 = 95;
 void setup () {
   size (1250, 600);
   minim = new Minim(this);
-  beep = minim.loadSnippet("beep.wav");
+  purl_sound = minim.loadSnippet("purl.wav");
+  knit_sound = minim.loadSnippet("knit.wav");
   
   //border around edges of canvas and white background
   fill(0, 0, 0);
@@ -73,42 +75,33 @@ void drawArrow() {
 }
 
 void playTone() {
-  switch(numPress) {
-    case 0:
-      delay(1000);
-      if(instructions[numPress] == "k") {
-        beep.play();
-        beep.rewind();
-      }
-      else {
-    
-      }
-    default:
-      if(instructions[numPress] == "k") {
-        beep.play();
-        beep.rewind();
-      }
-      else {
-    
-      }
+  if(instructions[numPress] == "k") {
+        knit_sound.play();
+        knit_sound.rewind();
+  }
+  else {
+        purl_sound.play();
+        purl_sound.rewind();
   }
 }
 
-void keyPressed() {
+
+void keyPressed() { // added error handling for advancing beyond the end of the row
   if (key == 'f' || key == 'F') {
-    greyRect(numPress);
-    numPress = numPress + 1;
-    drawArrow(); 
+    if (numPress + 1 < instructions.length){
+      greyRect(numPress);
+      numPress = numPress + 1;
+      drawArrow();
+      playTone();
+    }
   }
   else if(key == 'b' || key == 'B') {
-    if(numPress == 0) {
-      numPress = 0;
-    }
-    else {
+  if (numPress - 1 >= 0){
       numPress = numPress - 1;
+      redrawRect(numPress);
+      drawArrow();
+      playTone();
     }
-    redrawRect(numPress);
-    drawArrow();
   }
 }
 

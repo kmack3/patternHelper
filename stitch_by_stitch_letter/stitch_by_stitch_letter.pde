@@ -1,3 +1,9 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
 
 int numPress = 0;
 String[] instructions = {"k", "k", "p", "p", "k", "k", "p", "p", "k", "k", "p", "p"};
@@ -5,10 +11,16 @@ int rectX = 60;
 int x1 = 45;
 int x2 = 65;
 int x3 = 85;
+Minim minim;
+AudioSnippet purl_sound;
+AudioSnippet knit_sound;
 
 
 void setup () {
   size (1250, 600);
+  minim = new Minim(this);
+  purl_sound = minim.loadSnippet("purl.wav");
+  knit_sound = minim.loadSnippet("knit.wav");
   
   //border around edges of canvas and white background
   fill(0, 0, 0);
@@ -32,6 +44,20 @@ void setup () {
    }
    
   drawArrow();
+  
+  // play tone for first stitch
+  playTone();
+}
+
+void playTone() {
+  if(instructions[numPress] == "k") {
+        knit_sound.play();
+        knit_sound.rewind();
+  }
+  else {
+        purl_sound.play();
+        purl_sound.rewind();
+  }
 }
 
 void draw() {
@@ -49,23 +75,21 @@ void drawArrow() {
 }
 
 
-void keyPressed() {
+void keyPressed() { // added error handling for advancing beyond the end of the row
   if (key == 'f' || key == 'F') {
-    numPress = numPress + 1;
-    if(numPress == instructions.length) {
-      numPress = instructions.length; 
+    if (numPress + 1 < instructions.length){
+      numPress = numPress + 1;
+      colorRect(numPress);
+      drawArrow();
+      playTone();
     }
-    colorRect(numPress);
-    drawArrow();
   }
   else if(key == 'b' || key == 'B') {
-    if(numPress == 0) {
-      numPress = 0;
-    }
-    else {
+  if (numPress - 1 >= 0){
       numPress = numPress - 1;
+      reprintInstruction(numPress);
+      playTone();
     }
-    reprintInstruction(numPress);
   }
 }
 
