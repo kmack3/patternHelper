@@ -284,7 +284,7 @@ void redrawInstruction(int numPress) {
       drawKnit(xCoor+(100*xOffset), yCoor+(150*rowOffset));
     } else if (instruction.equals("p")) {
       drawPurl(xCoor+(100*xOffset), yCoor+(150*rowOffset));
-    } else if (instruction.equals("sk")) {
+    } else if (instruction.equals("s")) {
       drawSkip(xCoor+(100*xOffset), yCoor+(150*rowOffset));
     }
   }
