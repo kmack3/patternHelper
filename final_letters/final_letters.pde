@@ -16,7 +16,8 @@ AudioSnippet  skip_sound;
 AudioSnippet increase_sound;
 AudioSnippet decrease_sound;
 
-
+// for sound keeping track of last stitch spoken
+String lastStitch = "";
 
 int numPress = 0;
 int rows = 4;
@@ -380,35 +381,49 @@ void drawArrow() {
   playTone(activeRow);
 }
 
+
 void playTone(int row) {
+  //int rowOffset = numPress / 10;
+  //int xOffset = (numPress % 10) - 1;
   String[] stitches = getRowInstructions(row);
+  //println(stitches);
   for(int i = 0; i < stitches.length; i++) {
     rowOffset = numPress / 10;
     //println("i: " + i + " stitch: " + stitches[i]);
     if(numPress % 10 == 0) {
       xOffset = 0;  
     }
-    if(stitches[numPress].equals("k")) {
-        //println("knit");
-          knit_sound.play();
-          knit_sound.rewind();
-    }
-    else if (stitches[numPress].equals("s")) {
-          skip_sound.play();
-          skip_sound.rewind();
-    }
-    else if (stitches[numPress].equals("p")){
-          purl_sound.play();
-          purl_sound.rewind();
-          //println("purl");
-    }
-    else if(stitches[numPress].equals("i")) {
-      increase_sound.play();
-      increase_sound.rewind();
-    }
-    else {
-      decrease_sound.play();
-      decrease_sound.rewind();
+
+    // see if we should play a tone or not
+    // only pay tone if stitch type has changed
+    if (stitches[numPress].equals(lastStitch)) {
+      if(stitches[numPress].equals("k")) {
+          //println("knit");
+            knit_sound.play();
+            knit_sound.rewind();
+            lastStitch = "k";
+      }
+      else if (stitches[numPress].equals("s")) {
+            skip_sound.play();
+            skip_sound.rewind();
+            lastStitch = "s";
+      }
+      else if (stitches[numPress].equals("p")){
+            purl_sound.play();
+            purl_sound.rewind();
+            lastStitch = "p";
+            //println("purl");
+      }
+      else if(stitches[numPress].equals("i")) {
+        increase_sound.play();
+        increase_sound.rewind();
+        lastStitch = "i";
+      }
+      else {
+        decrease_sound.play();
+        decrease_sound.rewind();
+        lastStitch = "d";
+      }
     }
   }
 }

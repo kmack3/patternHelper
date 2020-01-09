@@ -16,7 +16,8 @@ AudioSnippet  skip_sound;
 AudioSnippet increase_sound;
 AudioSnippet decrease_sound;
 
-
+// for sound keeping track of last stitch spoken
+String lastStitch = "";
 
 int numPress = 0;
 int rows = 4;
@@ -134,9 +135,6 @@ void draw() {
   }
 }
 
-//void draw() {
-  
-//}
 
 void readFile() {
   fill(0,0,0);
@@ -379,27 +377,37 @@ void playTone(int row) {
     if(numPress % 10 == 0) {
       xOffset = 0;  
     }
-    if(stitches[numPress].equals("k")) {
-        //println("knit");
-          knit_sound.play();
-          knit_sound.rewind();
-    }
-    else if (stitches[numPress].equals("s")) {
-          skip_sound.play();
-          skip_sound.rewind();
-    }
-    else if (stitches[numPress].equals("p")){
-          purl_sound.play();
-          purl_sound.rewind();
-          //println("purl");
-    }
-    else if(stitches[numPress].equals("i")) {
-      increase_sound.play();
-      increase_sound.rewind();
-    }
-    else {
-      decrease_sound.play();
-      decrease_sound.rewind();
+
+    // see if we should play a tone or not
+    // only pay tone if stitch type has changed
+    if (stitches[numPress].equals(lastStitch)) {
+      if(stitches[numPress].equals("k")) {
+          //println("knit");
+            knit_sound.play();
+            knit_sound.rewind();
+            lastStitch = "k";
+      }
+      else if (stitches[numPress].equals("s")) {
+            skip_sound.play();
+            skip_sound.rewind();
+            lastStitch = "s";
+      }
+      else if (stitches[numPress].equals("p")){
+            purl_sound.play();
+            purl_sound.rewind();
+            lastStitch = "p";
+            //println("purl");
+      }
+      else if(stitches[numPress].equals("i")) {
+        increase_sound.play();
+        increase_sound.rewind();
+        lastStitch = "i";
+      }
+      else {
+        decrease_sound.play();
+        decrease_sound.rewind();
+        lastStitch = "d";
+      }
     }
   }
 }
