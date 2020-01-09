@@ -380,7 +380,7 @@ void playTone(int row) {
 
     // see if we should play a tone or not
     // only pay tone if stitch type has changed
-    if (stitches[numPress].equals(lastStitch)) {
+    if (!stitches[numPress].equals(lastStitch)) {
       if(stitches[numPress].equals("k")) {
           //println("knit");
             knit_sound.play();
